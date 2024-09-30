@@ -63,8 +63,4 @@ if img_file_buffer is not None:
             # Opcional: eliminar el archivo de audio después de reproducirlo (descomentar si es necesario)
             # os.remove(audio_file_name)
 
-# Opción para eliminar el texto y audio si se toma una nueva foto
-if st.button("Borrar Texto y Audio"):
-    text = ""
-    audio_file_name = ""
-    st.write("")  # Limpiar la visualización del texto
+
