@@ -47,20 +47,25 @@ if img_file_buffer is not None:
             gif_placeholder = st.empty()
             gif_placeholder.image("loading.gif")  # Asegúrate de tener un archivo GIF llamado loading.gif en tu directorio
 
-            # Generar el audio
-            tts = gTTS(text=text, lang='es')  # Cambia 'es' por el idioma que necesites
-            audio_file_name = f"temp/audio_{int(time.time())}.mp3"
-            tts.save(audio_file_name)
+            try:
+                # Generar el audio
+                tts = gTTS(text=text, lang='es')  # Cambia 'es' por el idioma que necesites
+                audio_file_name = f"temp/audio_{int(time.time())}.mp3"
+                tts.save(audio_file_name)
 
-            # Reproducir el audio
-            audio_file = open(audio_file_name, "rb")
-            audio_bytes = audio_file.read()
-            st.audio(audio_bytes, format="audio/mp3", start_time=0)
+                # Reproducir el audio
+                audio_file = open(audio_file_name, "rb")
+                audio_bytes = audio_file.read()
+                st.audio(audio_bytes, format="audio/mp3", start_time=0)
 
-            # Quitar el GIF de carga
-            gif_placeholder.empty()
+                # Quitar el GIF de carga
+                gif_placeholder.empty()
+            except Exception as e:
+                # Mostrar el error en la aplicación
+                st.error(f"Error al generar el audio: {e}")
 
-            # Opcional: eliminar el archivo de audio después de reproducirlo (descomentar si es necesario)
-            # os.remove(audio_file_name)
-
-
+# Opción para eliminar el texto y audio si se toma una nueva foto
+if st.button("Borrar Texto y Audio"):
+    text = ""
+    audio_file_name = ""
+    st.write("")  # Limpiar la visualización del texto
