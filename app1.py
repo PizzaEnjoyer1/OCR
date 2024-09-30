@@ -34,7 +34,10 @@ if img_file_buffer is not None:
     text = pytesseract.image_to_string(img_rgb)
     
     # Mostrar el texto reconocido
-    st.write(text)
+    if text.strip():
+        st.write(text)
+    else:
+        st.warning("No se reconoció ningún texto. Repita el proceso.")
 
     # Limpiar el audio previo
     if audio_file_name and os.path.exists(audio_file_name):
