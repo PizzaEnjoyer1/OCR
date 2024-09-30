@@ -29,7 +29,7 @@ if img_file_buffer is not None:
 
     if filtro == 'Con Filtro':
         cv2_img = cv2.bitwise_not(cv2_img)
-    
+
     img_rgb = cv2.cvtColor(cv2_img, cv2.COLOR_BGR2RGB)
     text = pytesseract.image_to_string(img_rgb)
     
@@ -40,9 +40,9 @@ if img_file_buffer is not None:
     if audio_file_name and os.path.exists(audio_file_name):
         os.remove(audio_file_name)
 
-    # Botón para generar audio
-    if st.button("Generar Audio"):
-        if text:
+    # Habilitar el botón "Generar Audio" solo si se ha reconocido texto
+    if text.strip():  # Verifica que el texto no esté vacío
+        if st.button("Generar Audio"):
             # Mostrar el GIF de carga
             gif_placeholder = st.empty()
             gif_placeholder.image("loading.gif")  # Asegúrate de tener un archivo GIF llamado loading.gif en tu directorio
@@ -64,8 +64,4 @@ if img_file_buffer is not None:
                 # Mostrar el error en la aplicación
                 st.error(f"Error al generar el audio: {e}")
 
-# Opción para eliminar el texto y audio si se toma una nueva foto
-if st.button("Borrar Texto y Audio"):
-    text = ""
-    audio_file_name = ""
-    st.write("")  # Limpiar la visualización del texto
+
